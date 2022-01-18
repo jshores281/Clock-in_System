@@ -1,9 +1,6 @@
-
 from datetime import date
 import datetime, time
 import os, sys
-
-
 
 class time_log:
 	def __init__(self):
@@ -23,14 +20,11 @@ class time_log:
 		today = date.today()
 		self.CUR_DATE = today.strftime("%m/%d/%Y")
 
-
-
 	def capture_time(self):
 		# captures current time
 		print(f'\nDATE = {self.CUR_DATE}\nTIME = {self.CUR_TIME}\n')
 		self.OPTION = input("CHOOSE TO CLOCK [IN/OUT]: ")
 		self.OPTION = self.OPTION.upper()
-
 
 
 	def clockr(self):
@@ -79,8 +73,7 @@ class time_log:
 			print("you have no clockins or the log file has been incorrectly altered")
 			sys.exit()
 
-
-	#check if last line is "IN" 
+	# check if last line is "IN" 
 		if self.OPTION == 'IN':
 			#print(self.OPTION)
 			last_clocked = self.lastline.split("@")[0]
@@ -92,11 +85,6 @@ class time_log:
 			file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}\n')
 		print(f"YOU HAVE BEEN CLOCKED **{self.OPTION}**")
 		sys.exit()
-
-
-
-
-
 
 	def redun_chk(self):
 	# redundancy checks for no file, input is correct, if already clocked in
