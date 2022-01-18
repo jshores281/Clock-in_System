@@ -42,21 +42,22 @@ class time_log:
 				last_clocked = self.lastline.split("@")[0]
 				last_date = self.lastline.split("-:-")[1]
 				last_time = self.lastline.split("-:-")[2]
-				time_calc = last_time.split(":")
-		# 
-				last_hour = int(time_calc[0])
-				last_minute = int(time_calc[1])
+				last_time_iso = last_time.split(":")
+		# gets last time. hour and minute into individual variables
+				last_hour = int(last_time_iso[0])
+				last_minute = int(last_time_iso[1])
+		# converts last time into decimal notation
 				last_perc_time = last_minute*(1/60)+last_hour
 				#second = time_calc[2]
-				cur_time_calc = self.CUR_TIME.split(":")
-				cur_hour = int(cur_time_calc[0])
-				cur_minute = int(cur_time_calc[1])
+		# gets clocked out current time. hour and minute into individual variables
+				cur_time_iso = self.CUR_TIME.split(":")
+				cur_hour = int(cur_time_iso[0])
+				cur_minute = int(cur_time_iso[1])
 
-
+		# converts current time into decimal notation
 				cur_perc_time = cur_minute*(1/60)+cur_hour
 				print(f"-LAST CLOCKED ({last_clocked}) AT:\n{last_date}\n{last_time}\n")
-				#print("last clock IN time",last_hour, last_minute)
-				#print("current clock OUT time", cur_hour, cur_minute)
+	
 				if last_perc_time > cur_perc_time:
 					night_hour = 24 - last_perc_time
 					tot_hourmin = night_hour + cur_perc_time
@@ -65,7 +66,7 @@ class time_log:
 				elif last_perc_time < cur_perc_time:
 					tot_hourmin = cur_perc_time - last_perc_time
 					print(tot_hourmin)
-					
+
 				elif last_perc_time == cur_perc_time:
 					tot_hourmin = cur_perc_time - last_perc_time
 					print(tot_hourmin)
