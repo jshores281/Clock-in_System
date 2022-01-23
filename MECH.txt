@@ -27,7 +27,6 @@ GET TOTAL HOURS WORKED:
 7.71 - 5.35 hr = 2.36 HOURS
 
 
-test pull
 
 ########################################################################
 CONVERT LATE TIME TO DECIMAL:
