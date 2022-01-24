@@ -5,10 +5,10 @@ import os, sys
 class time_log:
 	def __init__(self):
 		if sys.platform == 'linux' or sys.platform == 'linux2':
-			#os.system('clear')
+			os.system('clear')
 			print("OS = ",sys.platform)
 		elif sys.platform == 'win32':
-			#os.system("cls")
+			os.system("cls")
 			print("OS = ",sys.platform)
 
 		self.FILENAME = "time-log.txt"
@@ -21,7 +21,7 @@ class time_log:
 		self.CUR_DATE = today.strftime("%m/%d/%Y")
 
 	def capture_time(self):
-		# captures current time
+	# captures current time and input action
 		print(f'\nDATE = {self.CUR_DATE}\nTIME = {self.CUR_TIME}\n')
 		self.OPTION = input("CHOOSE TO CLOCK [IN/OUT]: ")
 		self.OPTION = self.OPTION.upper()
@@ -69,55 +69,66 @@ class time_log:
 					file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}-:-{tot_hourmin}\n')
 				print(f"YOU HAVE BEEN CLOCKED **{self.OPTION}**")
 				sys.exit()
-		except IndexError:
+		except (IndexError, AttributeError):
 			print("you have no clockins or the log file has been incorrectly altered")
 			sys.exit()
 
+		try:
 	# check if last line is "IN" 
-		if self.OPTION == 'IN':
-			#print(self.OPTION)
-			last_clocked = self.lastline.split("@")[0]
-			last_date = self.lastline.split("-:-")[1]
-			last_time = self.lastline.split("-:-")[2]
-			print(f"-LAST CLOCKED ({last_clocked}) AT:\n{last_date}\n{last_time}\n")
+			if self.OPTION == 'IN':
+				#print(self.OPTION)
+				last_clocked = self.lastline.split("@")[0]
+				last_date = self.lastline.split("-:-")[1]
+				last_time = self.lastline.split("-:-")[2]
+				print(f"-LAST CLOCKED ({last_clocked}) AT:\n{last_date}\n{last_time}\n")
 
-		with open(self.FILE, "a") as file:
-			file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}\n')
-		print(f"YOU HAVE BEEN CLOCKED **{self.OPTION}**")
-		sys.exit()
+			with open(self.FILE, "a") as file:
+				file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}\n')
+			print(f"YOU HAVE BEEN CLOCKED **{self.OPTION}**")
+			sys.exit()
+		except (IndexError, AttributeError):
+			print("[X] - FIRST CLOCK IN EVENT")
+			with open(self.FILE, "a") as file:
+				file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}\n')
+			print(f"YOU HAVE BEEN CLOCKED **{self.OPTION}**")
+			sys.exit()
+
 
 	def redun_chk(self):
 	# redundancy checks for no file, input is correct, if already clocked in
 		if self.FILENAME not in os.listdir():
+			print("[X] - CREATING NEW FILE")
 			fopen = open(self.FILE, 'w')
 			fopen.write(f'')
-			fopen.close()	
+			fopen.close()
+		try:
 	# check log file if clocked in/out
-		with open(self.FILE) as file:
-			self.lastline = file.readlines()[-1]
-			if self.OPTION == "EXIT":
-				print("EXITING PROGRAM")
-				time.sleep(3)
-				sys.exit()
-			elif "IN" != self.OPTION and "OUT" != self.OPTION:
-				print("invalid choice")
-				input("PRESS [ENTER]")
-				time_log()
-	# if try to clock in again, give error message: ALREADY CLOCKED IN		
-			elif self.OPTION in self.lastline:
-				print(f"ALREADY CLOCKED {self.OPTION}")
-				input("PRESS [ENTER]")
-				time_log()
-	# if clock request mismatched with log then do successfully clock requested action
-			elif self.OPTION not in self.lastline:
-				print(f"\nCLOCKING ({self.OPTION}) AT: \nDATE = {self.CUR_DATE}\nTIME = {self.CUR_TIME}\n")
-				tl.clockr()
-	# if no clock in send meessage: FIRST CLOCK IN MESSAGE RECORDED
-			else:
-				print("UNKNOW ERROR")
-				input("PRESS [ENTER]")
-				time_log()
-
+			with open(self.FILE) as file:
+				self.lastline = file.readlines()[-1]
+				if self.OPTION == "EXIT":
+					print("EXITING PROGRAM")
+					time.sleep(3)
+					sys.exit()
+				elif "IN" != self.OPTION and "OUT" != self.OPTION:
+					print("invalid choice")
+					input("PRESS [ENTER]")
+					time_log()
+		# if try to clock in again, give error message: ALREADY CLOCKED IN		
+				elif self.OPTION in self.lastline:
+					print(f"ALREADY CLOCKED {self.OPTION}")
+					input("PRESS [ENTER]")
+					time_log()
+		# if clock request mismatched with log then do successfully clock requested action
+				elif self.OPTION not in self.lastline:
+					print(f"\nCLOCKING ({self.OPTION}) AT: \nDATE = {self.CUR_DATE}\nTIME = {self.CUR_TIME}\n")
+					tl.clockr()
+		# if no clock in send meessage: FIRST CLOCK IN MESSAGE RECORDED
+				else:
+					print("UNKNOW ERROR")
+					input("PRESS [ENTER]")
+					time_log()
+		except IndexError:
+			tl.clockr()
 
 if __name__ == "__main__":
 	while True:
