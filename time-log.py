@@ -55,22 +55,22 @@ class time_log:
 				if last_perc_time > cur_perc_time:
 					night_hour = 24 - last_perc_time
 					tot_hourmin = night_hour + cur_perc_time
-					print(tot_hourmin)
 
 				elif last_perc_time < cur_perc_time:
 					tot_hourmin = cur_perc_time - last_perc_time
-					print(tot_hourmin)
 
 				elif last_perc_time == cur_perc_time:
 					tot_hourmin = cur_perc_time - last_perc_time
-					print(tot_hourmin)
 
+					
 				with open(self.FILE, "a") as file:
 					file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}-:-{tot_hourmin}\n')
-				print(f"YOU HAVE BEEN CLOCKED **{self.OPTION}**")
+				print(f"TOTAL HOURS = {tot_hourmin}\nYOU HAVE BEEN CLOCKED **{self.OPTION}**")
+				input("EXIT - [ENTER]")
 				sys.exit()
 		except (IndexError, AttributeError):
 			print("you have no clockins or the log file has been incorrectly altered")
+			input("EXIT - [ENTER]")
 			sys.exit()
 
 		try:
@@ -85,12 +85,14 @@ class time_log:
 			with open(self.FILE, "a") as file:
 				file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}\n')
 			print(f"YOU HAVE BEEN CLOCKED **{self.OPTION}**")
+			input("EXIT - [ENTER]")
 			sys.exit()
 		except (IndexError, AttributeError):
 			print("[X] - FIRST CLOCK IN EVENT")
 			with open(self.FILE, "a") as file:
 				file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}\n')
 			print(f"YOU HAVE BEEN CLOCKED **{self.OPTION}**")
+			input("EXIT - [ENTER]")
 			sys.exit()
 
 
@@ -108,6 +110,7 @@ class time_log:
 				if self.OPTION == "EXIT":
 					print("EXITING PROGRAM")
 					time.sleep(3)
+					input("EXIT - [ENTER]")
 					sys.exit()
 				elif "IN" != self.OPTION and "OUT" != self.OPTION:
 					print("invalid choice")
