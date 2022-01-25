@@ -124,9 +124,10 @@ class time_log:
 		# if try to clock in again, give error message: ALREADY CLOCKED IN		
 				elif self.OPTION in self.lastline:
 					print(f"ALREADY CLOCKED {self.OPTION}")
-
-				# SHOW LAST CLOCKED EVENT
-					
+					last_clocked = self.lastline.split("@")[0]
+					last_date = self.lastline.split("-:-")[1]
+					last_time = self.lastline.split("-:-")[2]
+					print(f"-LAST CLOCKED ({last_clocked}) AT:\n{last_date}\n{last_time}\n")
 					input("RETURN - [ENTER]")
 					time_log()
 		# if clock request mismatched with log then do successfully clock requested action
