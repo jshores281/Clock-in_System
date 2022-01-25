@@ -96,19 +96,17 @@ class time_log:
 
 	def redun_chk(self):
 	# redundancy checks for no file, input is correct, if already clocked in
-		if self.FILENAME not in os.listdir():
-			print("[X] - CREATING NEW FILE")
-			fopen = open(self.FILE, 'w')
-			fopen.write(f'')
-			fopen.close()
+		if self.OPTION == "EXIT":
+			print("EXITING PROGRAM")
+			sys.exit()
+
 		try:
 	# check log file if clocked in/out
 			with open(self.FILE) as file:
 				self.lastline = file.readlines()[-1]
-				if self.OPTION == "EXIT":
-					print("EXITING PROGRAM")
-					sys.exit()
-				elif self.OPTION == "SHOW":
+
+			# NO EXCEPTION BUG creates clock in record with show
+				if self.OPTION == "SHOW":
 					with open(self.FILE, 'r') as file:
 						print(file.read())
 					input("RETURN - [ENTER]")
@@ -117,7 +115,7 @@ class time_log:
 					os.system("sublime time-log.txt")
 					input("RETURN - [ENTER]")
 					time_log()
-				elif "IN" != self.OPTION and "OUT" != self.OPTION:
+				elif self.OPTION != "IN"  and self.OPTION != "OUT":
 					print("invalid choice")
 					input("RETURN - [ENTER]")
 					time_log()
@@ -139,8 +137,18 @@ class time_log:
 					print("UNKNOW ERROR")
 					input("RETURN - [ENTER]")
 					time_log()
+		except FileNotFoundError:
+			if self.FILENAME not in os.listdir():
+				print(f"[X] - NO FILE FOUND [{self.FILENAME}]")
+				fopen = open(self.FILE, 'w')
+				fopen.write(f'')
+				fopen.close()
+				print("[X] - CREATING NEW FILE")
+				input("RETURN - [ENTER]")
 		except IndexError:
 			tl.clockr()
+
+
 
 if __name__ == "__main__":
 	while True:

@@ -1,10 +1,11 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+
 block_cipher = None
 
 
 a = Analysis(['time-log.py'],
-             pathex=['C:\\Users\\jshor\\Port_Proj\\4IdeaProjects\\2python_progs\\4APPprogs\\appys\\Desk_apps\\Clock-in_System-master\\Clock-in_System-master'],
+             pathex=['C:\\Users\\HELIOS\\Documents\\CODE_BASE\\PY\\py.projects\\in-prog_pys\\desk_apps\\study-clock'],
              binaries=[],
              datas=[],
              hiddenimports=[],
