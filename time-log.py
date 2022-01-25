@@ -13,10 +13,10 @@ class time_log:
 
 	def capture_time(self):
 		if sys.platform == 'linux' or sys.platform == 'linux2':
-			os.system('clear')
+			#os.system('clear')
 			print("OS = ",sys.platform)
 		elif sys.platform == 'win32':
-			os.system("cls")
+			#os.system("cls")
 			print("OS = ",sys.platform)
 		print("default folder path = ", self.FILE)
 	# captures current time and input action
@@ -81,11 +81,11 @@ class time_log:
 				last_time = self.lastline.split("-:-")[2]
 				print(f"-LAST CLOCKED ({last_clocked}) AT:\n{last_date}\n{last_time}\n")
 
-			with open(self.FILE, "a") as file:
-				file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}\n')
-			print(f"YOU HAVE BEEN CLOCKED **{self.OPTION}**")
-			input("EXIT - [ENTER]")
-			sys.exit()
+				with open(self.FILE, "a") as file:
+					file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}\n')
+				print(f"YOU HAVE BEEN CLOCKED **{self.OPTION}**")
+				input("EXIT - [ENTER]")
+				sys.exit()
 		except (IndexError, AttributeError):
 			print("[X] - FIRST CLOCK IN EVENT")
 			with open(self.FILE, "a") as file:
@@ -105,12 +105,17 @@ class time_log:
 			with open(self.FILE) as file:
 				self.lastline = file.readlines()[-1]
 
-			# NO EXCEPTION BUG creates clock in record with show
 				if self.OPTION == "SHOW":
 					with open(self.FILE, 'r') as file:
+						read_file = file.read(1)
+						if not read_file: 
+							print("NO RECORDS FOUND")
+							pass
 						print(file.read())
 					input("RETURN - [ENTER]")
 					time_log()
+			# NO EXCEPTION BUG creates clock in record with show
+
 				elif self.OPTION == "OPEN":
 					os.system("sublime time-log.txt")
 					input("RETURN - [ENTER]")
