@@ -4,26 +4,24 @@ import os, sys
 
 class time_log:
 	def __init__(self):
-		if sys.platform == 'linux' or sys.platform == 'linux2':
-			os.system('clear')
-			print("OS = ",sys.platform)
-		elif sys.platform == 'win32':
-			os.system("cls")
-			print("OS = ",sys.platform)
-
 		self.FILENAME = "time-log.txt"
 		self.FILE = os.path.join(os.getcwd(), self.FILENAME)
-		print("default folder path = ", self.FILE)
-
 		ct = datetime.datetime.now()
 		self.CUR_TIME = ct.strftime("%H:%M:%S")
 		today = date.today()
 		self.CUR_DATE = today.strftime("%m/%d/%Y")
 
 	def capture_time(self):
+		if sys.platform == 'linux' or sys.platform == 'linux2':
+			os.system('clear')
+			print("OS = ",sys.platform)
+		elif sys.platform == 'win32':
+			os.system("cls")
+			print("OS = ",sys.platform)
+		print("default folder path = ", self.FILE)
 	# captures current time and input action
 		print(f'\nDATE = {self.CUR_DATE}\nTIME = {self.CUR_TIME}\n')
-		self.OPTION = input("CHOOSE TO CLOCK [IN/OUT]: ")
+		self.OPTION = input("CHOOSE AN OPTION [IN/OUT/SHOW/OPEN/EXIT]: ")
 		self.OPTION = self.OPTION.upper()
 
 
@@ -62,12 +60,13 @@ class time_log:
 				elif last_perc_time == cur_perc_time:
 					tot_hourmin = cur_perc_time - last_perc_time
 
-					
+
 				with open(self.FILE, "a") as file:
 					file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}-:-{tot_hourmin}\n')
 				print(f"TOTAL HOURS = {tot_hourmin}\nYOU HAVE BEEN CLOCKED **{self.OPTION}**")
 				input("EXIT - [ENTER]")
 				sys.exit()
+
 		except (IndexError, AttributeError):
 			print("you have no clockins or the log file has been incorrectly altered")
 			input("EXIT - [ENTER]")
@@ -95,7 +94,6 @@ class time_log:
 			input("EXIT - [ENTER]")
 			sys.exit()
 
-
 	def redun_chk(self):
 	# redundancy checks for no file, input is correct, if already clocked in
 		if self.FILENAME not in os.listdir():
@@ -109,17 +107,27 @@ class time_log:
 				self.lastline = file.readlines()[-1]
 				if self.OPTION == "EXIT":
 					print("EXITING PROGRAM")
-					time.sleep(3)
-					input("EXIT - [ENTER]")
 					sys.exit()
+				elif self.OPTION == "SHOW":
+					with open(self.FILE, 'r') as file:
+						print(file.read())
+					input("RETURN - [ENTER]")
+					time_log()
+				elif self.OPTION == "OPEN":
+					os.system("sublime time-log.txt")
+					input("RETURN - [ENTER]")
+					time_log()
 				elif "IN" != self.OPTION and "OUT" != self.OPTION:
 					print("invalid choice")
-					input("PRESS [ENTER]")
+					input("RETURN - [ENTER]")
 					time_log()
 		# if try to clock in again, give error message: ALREADY CLOCKED IN		
 				elif self.OPTION in self.lastline:
 					print(f"ALREADY CLOCKED {self.OPTION}")
-					input("PRESS [ENTER]")
+
+				# SHOW LAST CLOCKED EVENT
+					
+					input("RETURN - [ENTER]")
 					time_log()
 		# if clock request mismatched with log then do successfully clock requested action
 				elif self.OPTION not in self.lastline:
@@ -128,7 +136,7 @@ class time_log:
 		# if no clock in send meessage: FIRST CLOCK IN MESSAGE RECORDED
 				else:
 					print("UNKNOW ERROR")
-					input("PRESS [ENTER]")
+					input("RETURN - [ENTER]")
 					time_log()
 		except IndexError:
 			tl.clockr()
@@ -142,34 +150,3 @@ if __name__ == "__main__":
 		except IndexError:
 			# check if empty log file control flow ends here
 			tl.clockr()
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		"""
-		DIR_CHG = input("CHANGE TIME-LOG DIRECTORY [Y/N]: ")
-		DIR_CHG = DIR_CHG.upper()
-		if DIR_CHG == "Y":
-			self.FILE = input("ADD FOLDER DIRECTORY: ")
-		elif DIR_CHG == "N":
-			pass
-		else:
-			print("WRONG INPUT: ")
-		"""
