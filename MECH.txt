@@ -7,6 +7,9 @@
 # [~] - log to file (general location in windows fs (%userprofile%/documents/STUDYCLOCK_LOG)
 # [ ] - log to google calenders, csv/xls, google drive/sheets, sqlite3
 # [ ] - add comment option append to time
+# [ ] - show clocked status on program starting
+# [ ] - post 24 time calc ( date check )
+#
 ########################################################################
 CLOCKED IN & OUT EXAMPLE:
 
