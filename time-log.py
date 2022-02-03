@@ -25,6 +25,7 @@ class time_log:
 		self.OPTION = self.OPTION.upper()
 
 
+
 	def clockr(self):
 	# clock in status: YOUR CLOCKED IN [OR] YOUR CLOCKED OUT
 	# add comments option
