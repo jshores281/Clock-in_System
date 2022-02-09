@@ -65,14 +65,14 @@ class time_log:
 				with open(self.FILE, "a") as file:
 					file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}-:-{tot_hourmin}\n')
 				print(f"TOTAL HOURS = {tot_hourmin}\nYOU HAVE BEEN CLOCKED **{self.OPTION}**")
-				input("EXIT - [ENTER]")
-				sys.exit()
-
+				input("RETURN - [ENTER]")
+				#sys.exit()
+				time_log()
 		except (IndexError, AttributeError):
 			print("you have no clockins or the log file has been incorrectly altered")
-			input("EXIT - [ENTER]")
-			sys.exit()
-
+			input("RETURN - [ENTER]")
+			#sys.exit()
+			time_log()
 		try:
 	# check if last line is "IN" 
 			if self.OPTION == 'IN':
@@ -85,16 +85,17 @@ class time_log:
 				with open(self.FILE, "a") as file:
 					file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}\n')
 				print(f"YOU HAVE BEEN CLOCKED **{self.OPTION}**")
-				input("EXIT - [ENTER]")
-				sys.exit()
+				input("RETURN - [ENTER]")
+				#sys.exit()
+				time_log()
 		except (IndexError, AttributeError):
 			print("[X] - FIRST CLOCK IN EVENT")
 			with open(self.FILE, "a") as file:
 				file.write(f'{self.OPTION}@-:-{self.CUR_DATE}-:-{self.CUR_TIME}\n')
 			print(f"YOU HAVE BEEN CLOCKED **{self.OPTION}**")
-			input("EXIT - [ENTER]")
-			sys.exit()
-
+			input("RETURN - [ENTER]")
+			#sys.exit()
+			time_log()
 	def redun_chk(self):
 	# redundancy checks for no file, input is correct, if already clocked in
 		if self.OPTION == "EXIT":
