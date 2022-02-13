@@ -149,14 +149,10 @@ ___________.___   _____  ___________         _________ .____    ________  ______
 					time_log()
 			# NO EXCEPTION BUG creates clock in record with show
 				elif self.OPTION == "OPEN":
-					
 					if sys.platform == 'linux' or sys.platform == 'linux2':
 						os.system("subl time-log.txt")
-					
 					elif sys.platform == 'win32':
 						os.system("sublime time-log.txt")
-
-
 					input("RETURN TO MENU - [ENTER]")
 					time_log()
 				elif self.OPTION != "IN"  and self.OPTION != "OUT":
