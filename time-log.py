@@ -35,6 +35,7 @@ ___________.___   _____  ___________         _________ .____    ________  ______
 			print("\n"*3,"-----------------------------------------------------",
 				"\n[X] - OS ::",sys.platform)
 		print("\n[X] - default folder path ::", self.FILE)
+		print("[X] - default text editor :: Sublime-Text3")
 		try:
 			with open(self.FILE) as file:
 				self.lastline = file.readlines()[-1]
@@ -148,7 +149,14 @@ ___________.___   _____  ___________         _________ .____    ________  ______
 					time_log()
 			# NO EXCEPTION BUG creates clock in record with show
 				elif self.OPTION == "OPEN":
-					os.system("sublime time-log.txt")
+					
+					if sys.platform == 'linux' or sys.platform == 'linux2':
+						os.system("subl time-log.txt")
+					
+					elif sys.platform == 'win32':
+						os.system("sublime time-log.txt")
+
+
 					input("RETURN TO MENU - [ENTER]")
 					time_log()
 				elif self.OPTION != "IN"  and self.OPTION != "OUT":
