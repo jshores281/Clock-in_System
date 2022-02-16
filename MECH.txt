@@ -5,8 +5,8 @@
 # [X] - stop clock time  (start time read/ write end time/ print study time)
 # [X] - time between clock events converted into decimal value
 # [X] - log to file (logs to same location as fill being executed), (NO, general location in windows fs (%userprofile%/documents/STUDYCLOCK_LOG)
-# [!] - log to google calenders, csv/xls, google drive/sheets, sqlite3
-# [~] - add comment option append to clock in/out times
+# [~] - log to google calenders, csv/xls, google drive/sheets, sqlite3
+# [!] - add comment option append to clock in/out times
 # [ ] - convert CLI into GUI
 ########################################################################
 CLOCKED IN & OUT EXAMPLE:
