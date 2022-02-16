@@ -58,6 +58,10 @@ ___________.___   _____  ___________         _________ .____    ________  ______
 	# add comments option
 		try:
 			if self.OPTION == "OUT":
+				ct = datetime.datetime.now()
+				self.CUR_TIME = ct.strftime("%H:%M:%S")
+				today = date.today()
+				self.CUR_DATE = today.strftime("%m/%d/%Y")	
 		# get clocked in data 
 				last_clocked = self.lastline.split("@")[0]
 				last_date = self.lastline.split("-:-")[1]
@@ -105,6 +109,10 @@ ___________.___   _____  ___________         _________ .____    ________  ______
 		try:
 	# check if last line is "IN" 
 			if self.OPTION == 'IN':
+				ct = datetime.datetime.now()
+				self.CUR_TIME = ct.strftime("%H:%M:%S")
+				today = date.today()
+				self.CUR_DATE = today.strftime("%m/%d/%Y")
 				#print(self.OPTION)
 				last_clocked = self.lastline.split("@")[0]
 				last_date = self.lastline.split("-:-")[1]
@@ -172,6 +180,10 @@ ___________.___   _____  ___________         _________ .____    ________  ______
 					time_log()
 		# if clock request mismatched with log then do successfully clock requested action
 				elif self.OPTION not in self.lastline:
+					ct = datetime.datetime.now()
+					self.CUR_TIME = ct.strftime("%H:%M:%S")
+					today = date.today()
+					self.CUR_DATE = today.strftime("%m/%d/%Y")
 					print(f"-----------------------------------------------------",
 					f"\nCLOCKING ({self.OPTION}) AT: \nDATE = {self.CUR_DATE}\nTIME = {self.CUR_TIME}\n")
 					tl.clockr()
