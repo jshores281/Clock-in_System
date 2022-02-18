@@ -1,6 +1,6 @@
 from datetime import date
 import datetime, time
-import os, sys
+import os, sys, subprocess
 
 class time_log:
 	def __init__(self):
@@ -159,8 +159,13 @@ ___________.___   _____  ___________         _________ .____    ________  ______
 				elif self.OPTION == "OPEN":
 					if sys.platform == 'linux' or sys.platform == 'linux2':
 						os.system("subl time-log.txt")
-					elif sys.platform == 'win32':
-						os.system("sublime time-log.txt")
+					try:		
+						if sys.platform == 'win32':
+							if os.system("sublime time-log.txt") != 0:
+								raise Exception("sublime is not installed")
+					except:
+						os.system("notepad time-log.txt")
+
 					input("RETURN TO MENU - [ENTER]")
 					time_log()
 				elif self.OPTION != "IN"  and self.OPTION != "OUT":
